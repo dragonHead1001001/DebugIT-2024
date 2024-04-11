@@ -11,8 +11,11 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cv"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="300dp"
         android:visibility="visible"
+        app:cardCornerRadius="3dp"
+        app:contentPaddingLeft="20dp"
+        app:contentPaddingRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,41 +30,42 @@
             <TextView
                 android:id="@+id/head"
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
+                android:layout_height="65dp"
                 android:gravity="fill_horizontal"
                 android:maxLines="2"
                 android:paddingLeft="20dp"
                 android:paddingTop="5dp"
+                android:paddingRight="20dp"
                 android:text="TextView   "
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:visibility="visible"
-                app:layout_constraintStart_toEndOf="@+id/img"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img" />
 
             <ImageView
                 android:id="@+id/img"
-                android:layout_width="102dp"
-                android:layout_height="140dp"
-                android:layout_marginStart="4dp"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
                 android:src="@drawable/dumb"
                 android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/art"
                 android:layout_width="wrap_content"
-                android:layout_height="75dp"
+                android:layout_height="65dp"
                 android:maxLines="3"
                 android:paddingLeft="20dp"
                 android:paddingTop="5dp"
+                android:paddingRight="20dp"
                 android:text="TextView"
                 android:textSize="17sp"
                 android:textStyle="normal"
                 android:visibility="visible"
-                app:layout_constraintStart_toEndOf="@+id/img"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/head" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

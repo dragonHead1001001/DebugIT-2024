@@ -2,6 +2,7 @@ package com.example.khabar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ TextView head;
 Intent in;
 TextView content;
 ImageView img;
+TextView author,time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,8 @@ ImageView img;
         head = findViewById(R.id.headline);
         content = findViewById(R.id.content);
         img = findViewById(R.id.articleImg);
+        author =findViewById(R.id.Source);
+        time= findViewById(R.id.published);
     }
 
     @Override
@@ -39,9 +43,17 @@ ImageView img;
         super.onStart();
         Bundle _EXTRAS_ = in.getExtras();
         if(_EXTRAS_!=null) {
-            content.setText(_EXTRAS_.get("content").toString());
-            head.setText(_EXTRAS_.get("HeadLine").toString());
-            Picasso.get().load(_EXTRAS_.get("urlToImage").toString()).fit().into(img);
+            content.setText(""+_EXTRAS_.get("content"));
+            head.setText(""+_EXTRAS_.get("HeadLine"));
+            if(_EXTRAS_.get("urlToImage")!=null)
+            {
+                Log.d("Photo",""+_EXTRAS_.get("urlToImage"));
+                Picasso.get().load(_EXTRAS_.get("urlToImage").toString()).into(img);
+            }
+            else
+                img.setImageResource(R.drawable.dumb);
+            author.setText(""+_EXTRAS_.get("Source"));
+            time.setText(""+_EXTRAS_.get("published"));
         }
     }
 }

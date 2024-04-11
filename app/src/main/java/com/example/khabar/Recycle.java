@@ -17,10 +17,12 @@ import java.util.List;
 public class Recycle extends RecyclerView.Adapter<ViewHold> {
 List<HeadLine> hl;
 Context context;
-public Recycle(List<HeadLine> l,Context c)
+ArticleSelect listener;
+public Recycle(List<HeadLine> l,Context c,ArticleSelect listener)
 {
     hl= l;
     context = c;
+    this.listener = listener;
 }
 
     @NonNull
@@ -32,7 +34,8 @@ public Recycle(List<HeadLine> l,Context c)
     @Override
     public void onBindViewHolder(@NonNull ViewHold holder, int position) {
         holder.head.setText(hl.get(position).title);
-        holder.art.setText(hl.get(position).content.substring(167));
+        holder.art.setText(hl.get(position).content);
+
         if(hl.get(position).getUrlToImage()!=null)
         {
             Picasso.get().load(hl.get(position).urlToImage).fit().into(holder.img);
@@ -41,6 +44,7 @@ public Recycle(List<HeadLine> l,Context c)
         {
             holder.img.setImageResource(R.drawable.dumb);
         }
+        holder.cv.setOnClickListener(v -> listener.onItemClick(hl,position));
     }
     @Override
     public int getItemCount() {

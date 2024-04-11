@@ -1,6 +1,7 @@
 package com.example.khabar;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,7 +27,7 @@ public class Retro {
     public void getHeadLine(Fetchdata<APIResponse> l,String category, String query)
     {
         NewsAPI newsAPI = rf.create(NewsAPI.class);
-        Call<APIResponse> headlines= newsAPI.a("us",APIkey,category,query);
+        Call<APIResponse> headlines= newsAPI.a("us",category,query,APIkey);
         try
         {
             headlines.enqueue(new Callback<APIResponse>() {
@@ -35,17 +36,18 @@ public class Retro {
                     if(!response.isSuccessful())
                     {
                         Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
-
                     }
+                    Log.d("Response",""+response.body().getStatus());
                     if(response.body()==null) {
                         Toast.makeText(context, "NULL", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    l.onFetchData(response.body().getArticle(), response.message() );
+                    l.onFetchData(response.body().getArticles(), response.message(),response.body().totalResults);
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<APIResponse> call, @NonNull Throwable throwable) {
+                    Log.e("Error getting response","Failed response");
                     l.onError("Request Failed");
                 }
             });
@@ -63,10 +65,9 @@ public class Retro {
         @GET("top-headlines")
         Call<APIResponse> a(
                 @Query("country")String country,
-                @Query("apikey")String APIkey,
                 @Query("category")String category,
-                @Query("q")String q
-
+                @Query("query")String query,
+                @Query("apiKey")String APIkey
         );
 
     }

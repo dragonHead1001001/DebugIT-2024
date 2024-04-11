@@ -8,62 +8,68 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ArticleSelect{
 RecyclerView rv;
 SearchView sv ;
 Context context;
+Button button;
 Recycle r;
-    private final Fetchdata<APIResponse> fd = new Fetchdata<APIResponse>() {
-        @Override
-        public void onFetchData(List<HeadLine> l, String message) {
-            showNews(l);
-        }
+TextView tv;
 
-        @Override
-        public void onError(String message) {
-            Toast.makeText(new MainActivity(),message,Toast.LENGTH_SHORT).show();
-        }
-    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sv = findViewById(R.id.searchView);
-        Retro ret = new Retro(this);
-        ret.getHeadLine(fd,"business","null");
+        rv = findViewById(R.id.RV);
         context = this;
+        tv = findViewById(R.id.totalResults);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+         final Fetchdata<APIResponse> fd = new Fetchdata<APIResponse>() {
+            @Override
+            public void onFetchData(List<HeadLine> l, String message,int totalResults) {
+                showNews(l,totalResults);
+            }
 
+            @Override
+            public void onError(String message) {
+                Toast.makeText(new MainActivity(),message,Toast.LENGTH_SHORT).show();
+            }
+        };
+        Retro ret = new Retro(this);
+        ret.getHeadLine(fd,"general","null");
 
-    public void showNews(List<HeadLine>l)
-    {
-        rv = (RecyclerView) findViewById(R.id.RV);
+    }
+
+    public void showNews(List<HeadLine>l,int totalResults) {
+        tv.setText(totalResults+" articles found");
         rv.setHasFixedSize(true);
-        GridLayoutManager gm= new GridLayoutManager(this,1);
+        GridLayoutManager gm = new GridLayoutManager(this, 1);
         rv.setLayoutManager(gm);
-        r= new Recycle(l,this);
-        rv.setAdapter(new Recycle(l,this));
-        rv.addOnItemTouchListener(new ArticleSelect(this, rv, new ArticleSelect.OnItemListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                Intent in = new Intent(context, Article_View.class);
-                in.putExtra("content",l.get(position).content);
-                in.putExtra("urlToImage",l.get(position).urlToImage);
-                in.putExtra("HeadLine",l.get(position).title);
-                startActivity(in);
-            }
+        r = new Recycle(l, this,this);
+        rv.setAdapter(r);
+    }
 
-            @Override
-            public void onLongItemClick(View v, int position) {
-
-            }
-        }));
+    @Override
+    public void onItemClick(List<HeadLine> l,int position) {
+        Intent in = new Intent(context, Article_View.class);
+        in.putExtra("content",l.get(position).content);
+        in.putExtra("urlToImage",l.get(position).urlToImage);
+        in.putExtra("HeadLine",l.get(position).title);
+        in.putExtra("Source",l.get(position).author);
+        in.putExtra("published",l.get(position).publishedAt);
+        startActivity(in);
     }
 }
