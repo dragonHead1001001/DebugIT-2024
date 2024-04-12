@@ -44,6 +44,7 @@ public Recycle(List<HeadLine> l,Context c,ArticleSelect listener)
         {
             holder.img.setImageResource(R.drawable.dumb);
         }
+        holder.author.setText(hl.get(position).author);
         holder.cv.setOnClickListener(v -> listener.onItemClick(hl,position));
     }
     @Override

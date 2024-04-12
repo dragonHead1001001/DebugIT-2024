@@ -6,11 +6,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.squareup.picasso.Picasso;
 
@@ -23,19 +19,13 @@ TextView author,time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_article_view);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        setContentView(R.layout.activity_articles);
         in = getIntent();
-        head = findViewById(R.id.headline);
-        content = findViewById(R.id.content);
-        img = findViewById(R.id.articleImg);
-        author =findViewById(R.id.Source);
-        time= findViewById(R.id.published);
+        head = findViewById(R.id.headlines);
+        content = findViewById(R.id.article);
+        img = findViewById(R.id.articleImage);
+        author =findViewById(R.id.articleAuthor);
+        time= findViewById(R.id.publishedTime);
     }
 
     @Override

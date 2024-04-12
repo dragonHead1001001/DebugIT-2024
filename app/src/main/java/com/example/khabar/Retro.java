@@ -40,6 +40,7 @@ public class Retro {
                     Log.d("Response",""+response.body().getStatus());
                     if(response.body()==null) {
                         Toast.makeText(context, "NULL", Toast.LENGTH_SHORT).show();
+                        l.noData("No data Found");
                         return;
                     }
                     l.onFetchData(response.body().getArticles(), response.message(),response.body().totalResults);

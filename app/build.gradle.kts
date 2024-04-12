@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.khabar"
-        minSdk = 19
+        minSdk = 21
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -41,7 +41,7 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
     implementation("com.squareup.okio:okio:3.9.0")
-    implementation("androidx.activity:activity:1.8.0")
+    implementation("androidx.activity:activity:1.8.2")
     testImplementation("junit:junit:4.13.2")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

@@ -15,6 +15,7 @@ public class ViewHold extends RecyclerView.ViewHolder
     TextView art;
     ImageView img;
     CardView cv;
+    TextView author;
     public ViewHold(View v)
     {
         super(v);
@@ -22,6 +23,7 @@ public class ViewHold extends RecyclerView.ViewHolder
         art = v.findViewById(R.id.art);
         cv = v.findViewById(R.id.cv);
         img = v.findViewById(R.id.img);
+        author= v.findViewById(R.id.author);
     }
 
 }
