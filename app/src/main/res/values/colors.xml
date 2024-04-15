@@ -3,4 +3,20 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorPrimary">#03A9F4</color>
+    <color name="loginPrimary">#989D9E</color>
+    <color name="khabarBG">#81F8F5F5</color>
+    <color name="loginSecondarylight">#A8F5FF</color>
+    <color name="bg">#FAFFDFA5</color>
+    <color name="photo">#F5F9EDCD</color>
+    <color name="orange">#E1FF9800</color>
+    <color name="blue">#1C38D8</color>
+    <color name="green">#4CAF50</color>
+    <color name="red">#052F5F</color>
+    <color name="blues">#006477</color>
+    <color name="g">#06A77D</color>
+    <color name="a">#004346</color>
+    <color name="d">#32965D</color>
+    <color name="f">#68A357</color>
+    <color name="r">#DD0000</color>
+
 </resources>

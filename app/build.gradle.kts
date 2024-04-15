@@ -43,7 +43,9 @@ dependencies {
     implementation("com.squareup.okio:okio:3.9.0")
     implementation("androidx.activity:activity:1.8.2")
     testImplementation("junit:junit:4.13.2")
+    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    implementation("com.google.firebase:firebase-storage")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

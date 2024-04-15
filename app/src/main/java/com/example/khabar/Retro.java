@@ -21,13 +21,13 @@ import retrofit2.http.Query;
 public class Retro {
     Context context;
     String APIkey = "27dd4f46d8cd4ba881fb80e711595475";
-            String Base_URL = "https://newsapi.org/v2/";
-            Retrofit rf = new Retrofit.Builder().baseUrl(Base_URL).addConverterFactory(GsonConverterFactory.create()).build();
+    String Base_URL = "https://newsapi.org/v2/";
+    Retrofit rf = new Retrofit.Builder().baseUrl(Base_URL).addConverterFactory(GsonConverterFactory.create()).build();
 
     public void getHeadLine(Fetchdata<APIResponse> l,String category, String query)
     {
         NewsAPI newsAPI = rf.create(NewsAPI.class);
-        Call<APIResponse> headlines= newsAPI.a("us",category,query,APIkey);
+        Call<APIResponse> headlines= newsAPI.a("in",category,query.trim().toLowerCase().replace(' ','-'),APIkey);
         try
         {
             headlines.enqueue(new Callback<APIResponse>() {

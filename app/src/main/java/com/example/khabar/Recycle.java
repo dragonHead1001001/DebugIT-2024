@@ -35,7 +35,6 @@ public Recycle(List<HeadLine> l,Context c,ArticleSelect listener)
     public void onBindViewHolder(@NonNull ViewHold holder, int position) {
         holder.head.setText(hl.get(position).title);
         holder.art.setText(hl.get(position).content);
-
         if(hl.get(position).getUrlToImage()!=null)
         {
             Picasso.get().load(hl.get(position).urlToImage).fit().into(holder.img);

@@ -5,14 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:isScrollContainer="true"
+    android:background="@drawable/bg"
     android:visibility="visible"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:theme="@style/Base.Theme.Khabar">
+        android:theme="@style/Base.Theme.Khabar"
+        android:background="@drawable/bg">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbar"
@@ -20,14 +22,9 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            android:background="@drawable/tb_bg">
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
 
-            <Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin" />
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -37,8 +34,8 @@
                 <ImageView
                     android:id="@+id/articleImage"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:foregroundGravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:foregroundGravity="fill"
                     android:paddingLeft="10dp"
                     android:paddingTop="10dp"
                     android:paddingEnd="10dp"
@@ -61,8 +58,8 @@
                     android:text="TextView"
                     android:textColor="#FFFF"
                     android:textSize="19sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintBottom_toTopOf="@+id/publishedTime"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <TextView
                     android:id="@+id/publishedTime"
@@ -73,9 +70,46 @@
                     android:paddingRight="20dp"
                     android:text="TextView"
                     android:textColor="#FFFF"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/articleAuthor" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                android:background="@drawable/bg">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:id="@+id/speaker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|left"
+                        android:foregroundGravity="top|left"
+                        android:onClick="Speak"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
+
+                    <ImageButton
+                        android:id="@+id/Share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:onClick="Share"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/speaker"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@android:drawable/ic_menu_send" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -100,6 +134,7 @@
                 android:paddingTop="10dp"
                 android:paddingRight="10dp"
                 android:text="TextView"
+                android:textColor="@color/black"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -116,11 +151,15 @@
                 android:paddingTop="10dp"
                 android:paddingRight="10dp"
                 android:text="TextView"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/headlines" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

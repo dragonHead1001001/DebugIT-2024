@@ -8,14 +8,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.List;
-
 
 public class MainActivity extends AppCompatActivity implements ArticleSelect{
 RecyclerView rv;
@@ -27,6 +25,8 @@ Context context;
 Button buttons[] = new Button[7];
 Recycle r;
 TextView tv;
+Parcelable state;
+GridLayoutManager gm = new GridLayoutManager(this, 1);
     private final Fetchdata<APIResponse> fd = new Fetchdata<APIResponse>() {
         @Override
         public void onFetchData(List<HeadLine> l, String message,int totalResults) {
@@ -48,10 +48,11 @@ TextView tv;
             error.setText(message);
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.article_list);
         sv = findViewById(R.id.searchView);
         rv = findViewById(R.id.RV);
         reload = findViewById(R.id.reload);
@@ -87,19 +88,21 @@ TextView tv;
     @Override
     protected void onStart() {
         super.onStart();
-
-        Retro ret = new Retro(this);
-        ret.getHeadLine(fd,"general","null");
+        if(state==null) {
+            Retro ret = new Retro(this);
+            ret.getHeadLine(fd, "general", "null");
+        }
 
     }
 
     public void showNews(List<HeadLine>l,int totalResults) {
         tv.setText(totalResults+" articles found");
         rv.setHasFixedSize(true);
-        GridLayoutManager gm = new GridLayoutManager(this, 1);
         rv.setLayoutManager(gm);
         r = new Recycle(l, this,this);
         rv.setAdapter(r);
+        if(state!=null)
+            gm.onRestoreInstanceState(state);
         pd.dismiss();
     }
 
@@ -111,13 +114,14 @@ TextView tv;
         in.putExtra("HeadLine",l.get(position).title);
         in.putExtra("Source",l.get(position).author);
         in.putExtra("published",l.get(position).publishedAt);
+        in.putExtra("URL",l.get(position).url);
         startActivity(in);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-
+        state = gm.onSaveInstanceState();
     }
 
     public void onClick(View v)
@@ -137,15 +141,12 @@ TextView tv;
     }
     public void onC(View v)
     {
-        int key =v.getId();
-        if(key==reload.getId())
-        {
             pd.setTitle("Adding News");
             pd.show();
             setContentView(R.layout.activity_main);
             Retro retro = new Retro(context);
             retro.getHeadLine(fd,"general","null");
 
-        }
+
     }
 }
